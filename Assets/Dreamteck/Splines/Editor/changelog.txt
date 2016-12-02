@@ -1,0 +1,28 @@
+----- 1.0.6 -----
+
+FEATURE: Added a "By Direction" normal operation to the editor
+FEATURE: Selecting multiple points and editing the normals of one of them using the normal tool now updates the rest of the selected points
+FEATURE: Added the Symmetry tool in the editor 
+FEATURE: Added the Merge splines tool in the editor
+FEATURE: The spline editor now shows an updated preview of the spline when in point creation mode
+FEATURE: The editor buttons in the scene view are now constantly enabled regardless of whether or not there is a selection
+FEATURE: The delete point tool can now remove spline points using drag-selection
+FEATURE: Added an "Add Node" option for the create point tool which creats and binds a node for each created point
+FEATURE: Added a delete node dialog for the point for points which are connected to nodes and are deleted
+FEATURE: Added a Travel method to the Spline, SplineComputer and SplineUser classes which travels along a spline with a given distance
+FEATURE: Added a Inverse Point Order button to the SplineComputer's editor
+
+FIX: Fixed SplineAddress.GetEvaluationValues returning null
+FIX: SplineAddress.Evaluate inaccuracy when there are more than one paths connected
+FIX: Morph states now update the connected nodes' positions
+FIX: The SplineRenderers that are children of non-spline objects now update when the parent object is manipulated in the editor
+FIX: Small performance improvements in the editor draw algorithm
+FIX: The create point grids now have a fixed size when editing in orthographic mode
+FIX: Appending new points to the beginning no longer causes the connected nodes to shift
+FIX: Fixed the issue with rotating objects when rotation is disabled in the ObjectBender component
+FIX: Fixed the IndexOutOfRange exception when evaluating bezier splines with no control points
+
+API: The "updateNode" parameter of SplineComputer.SetPoint() has been removed and replaced with a "space" parameter. Node updates are handled automatically
+API: The spline editor has been rewritten to support more flexibility for future expansions
+API: Added two optional parameters to the SplineFollower.AddTrigger to set the trigger position and type
+API: Added two optional paramters to the LengthCalculator.AddEvent to set the event's target length and type
