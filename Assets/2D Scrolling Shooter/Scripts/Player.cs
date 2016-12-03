@@ -79,9 +79,15 @@ public class Player : Spaceship
 			    ObjectPool.current.PoolObject(c.gameObject) ;
 			//...otherwise...
 			else
-				//...deactivate the enemy ship
-                // TODO here we should judge the hp, or type. Enemy boss should not be deativated
-				c.gameObject.SetActive(false);
+            //...deactivate the enemy ship
+            // TODO here we should judge the hp, or type. Enemy boss should not be deativated
+            {
+                if (!c.GetComponent<Spaceship>().isInvincible() && !c.GetComponent<Spaceship>().isHeadStrong())
+                {
+                    c.gameObject.SetActive(false);
+                }
+            }
+				
 
 			//Tell the manager that we crashed
 			Manager.current.GameOver();

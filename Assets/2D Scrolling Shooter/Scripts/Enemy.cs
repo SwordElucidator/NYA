@@ -8,7 +8,7 @@ public class Enemy : Spaceship
 	public int hp = 1;			//Ship's hit points
 	public int point = 100;		//Ship's point worth 
 
-	int currentHP;				//Ship's current hit points
+	protected int currentHP;				//Ship's current hit points
 
 
     //Override parent's OnEnable method
@@ -31,7 +31,7 @@ public class Enemy : Spaceship
 		GetComponent<Rigidbody2D>().velocity = (transform.up * -1) * speed;
 	}
 
-	void OnTriggerEnter2D (Collider2D c)
+    protected virtual void OnTriggerEnter2D (Collider2D c)
 	{
 
         if (invincible)

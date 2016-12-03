@@ -13,6 +13,7 @@ public class Spaceship : MonoBehaviour
 	public GameObject explosion;            //The prefab of this ship's explosion
 
     protected bool invincible = false;
+    protected bool headstrong = false;
     protected Transform[] shotPositions;	//Fire points on the ship
 	protected Animator animator;
     //Reference to the ship's animator component
@@ -26,6 +27,15 @@ public class Spaceship : MonoBehaviour
     //get the player when aimed
     private Player player;
 
+    public bool isInvincible()
+    {
+        return invincible;
+    }
+
+    public bool isHeadStrong()
+    {
+        return headstrong;
+    }
 
     void Awake ()
 	{

@@ -21,7 +21,7 @@ public class Bullet : MonoBehaviour
     private Vector3 tmp = Vector3.zero;
 
     public float[] complexBulletAccList;
-    public float[] complexBulletTimeList;
+    public float[] complexBulletTimeList; // time list means the time point that each acc will be used
 
 
     
@@ -111,6 +111,10 @@ public class Bullet : MonoBehaviour
     IEnumerator complexChange()
     {
         int len = complexBulletAccList.Length;
+        if (len == 0)
+        {
+            yield break;
+        }
         float last = 0F;
         int current = 0;
         while (current < len)
