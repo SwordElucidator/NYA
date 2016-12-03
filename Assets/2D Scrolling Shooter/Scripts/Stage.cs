@@ -9,6 +9,7 @@ public class Stage : MonoBehaviour {
     public float[] speeds;
     public float[] intervals; // intervals[0] is before the computers[0]
     public float stageInterval = 2F;
+    public float stageCurtainInterval = 2F;
     public bool repeat = true;
 
     // Curtain
@@ -59,7 +60,7 @@ public class Stage : MonoBehaviour {
                 }
                 SplineFollower follower = transform.parent.parent.GetComponent<SplineFollower>();
                 follower.computer = computers[current];
-                follower.followSpeed = 10;
+                follower.followSpeed = speeds[current];
                 follower.autoFollow = true;
                 follower.applyRotation = false;
                 follower.applyScale = false;
@@ -98,6 +99,7 @@ public class Stage : MonoBehaviour {
                 curtains[current].doCurtain();
                 current++;
             }
+            yield return new WaitForSeconds(stageCurtainInterval);
         } while (repeat);
         
     }

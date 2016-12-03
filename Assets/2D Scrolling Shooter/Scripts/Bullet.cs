@@ -24,6 +24,24 @@ public class Bullet : MonoBehaviour
     public float[] complexBulletTimeList; // time list means the time point that each acc will be used
 
 
+    private float _speed;
+    private bool _onSpecialMovement = false;
+    private Transform _target;
+    private float _finalSpeed = -1F;
+    public void moveToBySpeed(Transform target)
+    {
+        _speed = speed;
+        _target = target;
+        _onSpecialMovement = true;
+    }
+
+    public void moveToByTime(Transform target, float time, float finalSpeed=-1F)
+    {
+        _speed = Vector2.Distance(transform.position, target.position) / time;
+        _target = target;
+        _onSpecialMovement = true;
+        _finalSpeed = finalSpeed;
+    }
     
 
     void Update()
@@ -38,17 +56,35 @@ public class Bullet : MonoBehaviour
         }
         */
         //transform.position += (tmp * speed * Time.deltaTime);
-        speed += acceleration * Time.deltaTime;
-        GetComponent<Rigidbody2D>().velocity = transform.up.normalized * speed;
+        if (_onSpecialMovement)
+        {
+            GetComponent<Rigidbody2D>().velocity = new Vector3();
+            transform.position = Vector2.MoveTowards(transform.position, _target.position, _speed * Time.deltaTime);
+            if (Vector2.Distance(transform.position, _target.position) < 0.1f)
+            {
+                _onSpecialMovement = false;
+                if (_finalSpeed > 0)
+                {
+                    speed = _finalSpeed;
+                    _finalSpeed = -1F;
+                }
+            }
+        }
+        else
+        {
+            speed += acceleration * Time.deltaTime;
+            GetComponent<Rigidbody2D>().velocity = transform.up.normalized * speed;
+        }
+        
 
-
+        /*
         shotAngle += bulletAngleRate * Time.deltaTime;
 
         if (_shotAngle != shotAngle)
         {
             transform.rotation = Quaternion.AngleAxis(shotAngle - 90.0f, Vector3.forward);
             _shotAngle = shotAngle;
-        }
+        }*/
     }
 
     public void Calc()
