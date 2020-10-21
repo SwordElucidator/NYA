@@ -10,12 +10,12 @@ public class WaveScript : MonoBehaviour
 	void Awake()
 	{
 		//Get a reference to each ship (for efficiency)
-        if (transform.FindChild("Enemies") != null)
+        if (transform.Find("Enemies") != null)
         {
-            waveShips = new GameObject[transform.FindChild("Enemies").childCount];
-            for (int i = 0; i < transform.FindChild("Enemies").childCount; i++)
+            waveShips = new GameObject[transform.Find("Enemies").childCount];
+            for (int i = 0; i < transform.Find("Enemies").childCount; i++)
             {
-                waveShips[i] = transform.FindChild("Enemies").GetChild(i).gameObject;
+                waveShips[i] = transform.Find("Enemies").GetChild(i).gameObject;
             }
         }
         else

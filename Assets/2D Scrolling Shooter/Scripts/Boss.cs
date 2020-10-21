@@ -20,12 +20,12 @@ public class Boss : Enemy
             hplines[0] = hp - 1;
         }
 
-        if (transform.FindChild("Stages") != null)
+        if (transform.Find("Stages") != null)
         {
-            stages = new Stage[transform.FindChild("Stages").childCount];
-            for (int i = 0; i < transform.FindChild("Stages").childCount; i++)
+            stages = new Stage[transform.Find("Stages").childCount];
+            for (int i = 0; i < transform.Find("Stages").childCount; i++)
             {
-                stages[i] = transform.FindChild("Stages").GetChild(i).GetComponent<Stage>();
+                stages[i] = transform.Find("Stages").GetChild(i).GetComponent<Stage>();
             }
         }
 

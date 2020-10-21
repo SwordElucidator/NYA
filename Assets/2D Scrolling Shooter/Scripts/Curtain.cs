@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
 
 public class Curtain : MonoBehaviour {
@@ -7,6 +8,8 @@ public class Curtain : MonoBehaviour {
     // shot positions should also be set by the children since they may have different types of shot positions
 
     //additional bullets should be defined by override this class
+
+    public int totalSeconds;
 
     protected virtual void Awake()
     {
@@ -18,7 +21,7 @@ public class Curtain : MonoBehaviour {
 
     //curtain will be accessed by calling doCurtain when needed.
     //if a curtain will be called several times, then make a IEm to do that in doCurtain
-    public virtual void doCurtain()
+    public virtual void doCurtain(Action<int> bossMoveFunction)
     {
 
     }

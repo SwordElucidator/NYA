@@ -36,7 +36,7 @@ namespace Dreamteck.Splines
                 BendPropertiesGUI(bender.bendProperties);
                 if (selectedProperty >= 0)
                 {
-                    if (Event.current.type == EventType.keyDown)
+                    if (Event.current.type == EventType.KeyDown)
                     {
                         if (Event.current.keyCode == KeyCode.DownArrow) selectedProperty++;
                         if (Event.current.keyCode == KeyCode.UpArrow) selectedProperty--;
@@ -109,7 +109,7 @@ namespace Dreamteck.Splines
                     GUILayout.Box("", GUILayout.Height(18), GUILayout.Width(Screen.width - 20));
                     Rect lastRect = GUILayoutUtility.GetLastRect();
                     lastRect.width -= 30;
-                    if (lastRect.Contains(Event.current.mousePosition) && Event.current.type == EventType.mouseDown)
+                    if (lastRect.Contains(Event.current.mousePosition) && Event.current.type == EventType.MouseDown)
                     {
                         selectedProperty = i;
                         drawTransform = properties[i].transform.transform;

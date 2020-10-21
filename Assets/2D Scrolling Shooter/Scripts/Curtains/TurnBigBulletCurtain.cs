@@ -1,5 +1,7 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
+using Random = UnityEngine.Random;
 
 public class TurnBigBulletCurtain : Curtain
 {
@@ -15,10 +17,12 @@ public class TurnBigBulletCurtain : Curtain
     public float secondArrivalTime = 0.3F;
     public float thirdArrivalTime = 0.1F;
 
-    public float finalSpeed = 5F;
+    public float finalTime = 2F;
+
+    public Transform final;
 
 
-    public override void doCurtain()
+    public override void doCurtain(Action<int> bossMoveFunction)
     {
         if (GetComponent<AudioSource>())
             GetComponent<AudioSource>().Play();
@@ -26,11 +30,16 @@ public class TurnBigBulletCurtain : Curtain
         Debug.Assert(hugeShotPositions.Length == hugeBallBulletSecondEndPoints.Length);
         Debug.Assert(hugeShotPositions.Length == hugeBallBulletThirdEndPoints.Length);
 
-        StartCoroutine(shoot());
+        StartCoroutine(shoot(bossMoveFunction));
     }
 
-    IEnumerator shoot()
+    IEnumerator shoot(Action<int> bossMoveFunction)
     {
+
+        var allBullets = new GameObject[hugeShotPositions.Length * 3];
+
+        bossMoveFunction(0);
+        
         for (int i = 0; i < hugeShotPositions.Length; i++)
         {
             yield return new WaitForSeconds(bulletInterval);
@@ -50,9 +59,12 @@ public class TurnBigBulletCurtain : Curtain
             obj.SetActive(true);
 
             obj.GetComponent<Bullet>().moveToByTime(target, arrivalTime);
+            allBullets[i] = obj;
         }
 
         yield return new WaitForSeconds(waitInterval);
+        
+        bossMoveFunction(0);
 
         for (int i = 0; i < hugeShotPositions.Length; i++)
         {
@@ -73,9 +85,12 @@ public class TurnBigBulletCurtain : Curtain
             obj.SetActive(true);
 
             obj.GetComponent<Bullet>().moveToByTime(target, secondArrivalTime);
+            allBullets[hugeShotPositions.Length + i] = obj;
         }
 
         yield return new WaitForSeconds(waitInterval);
+        
+        bossMoveFunction(0);
 
         for (int i = 0; i < hugeShotPositions.Length; i++)
         {
@@ -96,7 +111,23 @@ public class TurnBigBulletCurtain : Curtain
             obj.SetActive(true);
 
             obj.GetComponent<Bullet>().moveToByTime(target, thirdArrivalTime);
+            allBullets[hugeShotPositions.Length * 2 + i] = obj;
         }
+        
+        yield return new WaitForSeconds(waitInterval);
+        
+        // FLY FLY
+        var max = final.position.x;
+        var min = - max;
+        foreach (var bullet in allBullets)
+        {
+            var finalX = Random.value * (max - min) + min;
+            bullet.GetComponent<Bullet>().moveToByTime(new Vector3(finalX, final.position.y, 0), finalTime);
+        }
+        
+        yield return new WaitForSeconds(finalTime);
+        
+        
     }
 }
 

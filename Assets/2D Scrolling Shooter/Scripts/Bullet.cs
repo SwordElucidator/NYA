@@ -26,19 +26,27 @@ public class Bullet : MonoBehaviour
 
     private float _speed;
     private bool _onSpecialMovement = false;
-    private Transform _target;
+    private Vector3 _targetPos;
     private float _finalSpeed = -1F;
     public void moveToBySpeed(Transform target)
     {
         _speed = speed;
-        _target = target;
+        _targetPos = target.position;
         _onSpecialMovement = true;
     }
 
     public void moveToByTime(Transform target, float time, float finalSpeed=-1F)
     {
         _speed = Vector2.Distance(transform.position, target.position) / time;
-        _target = target;
+        _targetPos = target.position;
+        _onSpecialMovement = true;
+        _finalSpeed = finalSpeed;
+    }
+    
+    public void moveToByTime(Vector3 position, float time, float finalSpeed=-1F)
+    {
+        _speed = Vector2.Distance(transform.position, position) / time;
+        _targetPos = position;
         _onSpecialMovement = true;
         _finalSpeed = finalSpeed;
     }
@@ -59,8 +67,8 @@ public class Bullet : MonoBehaviour
         if (_onSpecialMovement)
         {
             GetComponent<Rigidbody2D>().velocity = new Vector3();
-            transform.position = Vector2.MoveTowards(transform.position, _target.position, _speed * Time.deltaTime);
-            if (Vector2.Distance(transform.position, _target.position) < 0.1f)
+            transform.position = Vector2.MoveTowards(transform.position, _targetPos, _speed * Time.deltaTime);
+            if (Vector2.Distance(transform.position, _targetPos) < 0.1f)
             {
                 _onSpecialMovement = false;
                 if (_finalSpeed > 0)

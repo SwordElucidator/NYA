@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 //This is the manager for the game
 public class Manager : MonoBehaviour
@@ -6,8 +7,8 @@ public class Manager : MonoBehaviour
 	public static Manager current;			//A public static reference to itself (make's it visible to other objects without a reference)
 	public GameObject player;				//The player ship
 	public GameObject titleObject;			//The game object containing the title text
-	public GUIText scoreGUIText;			//The score text
-	public GUIText highScoreGUIText;		//The high score text
+	public Text scoreGUIText;			//The score text
+	public Text highScoreGUIText;		//The high score text
 	
 	int score;								//The player's score
 	int highScore;							//The high score
@@ -17,8 +18,11 @@ public class Manager : MonoBehaviour
 	void Awake()
 	{
 		//Ensure that there is only one manager
-		if(current == null)
+		if (current == null)
+		{
 			current = this;
+		}
+			
 		else
 			Destroy (gameObject);
 	}

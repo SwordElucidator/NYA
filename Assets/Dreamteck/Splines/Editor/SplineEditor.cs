@@ -618,7 +618,7 @@ namespace Dreamteck.Splines
 
         void PostScene(SceneView current)
         {
-            if (Event.current.type == EventType.layout) HandleUtility.AddDefaultControl(GUIUtility.GetControlID(FocusType.Passive));
+            if (Event.current.type == EventType.Layout) HandleUtility.AddDefaultControl(GUIUtility.GetControlID(FocusType.Passive));
             if (mouseLeftDown || mouseLeftUp)
             {
                 if ((!emptyClick && !alt && !orbiting) || mouseRight) Event.current.Use();
@@ -1944,7 +1944,7 @@ namespace Dreamteck.Splines
                         alt = false;
                     }
                     break;
-                case EventType.layout:
+                case EventType.Layout:
                     HandleUtility.AddDefaultControl(controlID); 
                     break;
             }
@@ -1966,7 +1966,7 @@ namespace Dreamteck.Splines
             if (movePivot)
             {
                 SceneView.lastActiveSceneView.pivot = Vector3.Lerp(SceneView.lastActiveSceneView.pivot, idealPivot, 0.02f);
-                if (Event.current.type == EventType.mouseDown || Event.current.type == EventType.mouseUp) movePivot = false;
+                if (Event.current.type == EventType.MouseDown || Event.current.type == EventType.MouseUp) movePivot = false;
                 if (Vector3.Distance(SceneView.lastActiveSceneView.pivot, idealPivot) <= 0.05f)
                 {
                     SceneView.lastActiveSceneView.pivot = idealPivot;

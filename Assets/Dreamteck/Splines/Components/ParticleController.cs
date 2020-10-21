@@ -76,7 +76,7 @@ namespace Dreamteck.Splines
                 Transform particleSystemTransform = _particleSystem.transform;
                 for (int i = 0; i < particleCount; i++)
                 {
-                    if (particles[i].lifetime <= 0f) continue;
+                    if (particles[i].remainingLifetime <= 0f) continue;
                     if (isLocal)
                     {
                         particles[i].position = particleSystemTransform.TransformPoint(particles[i].position);
@@ -101,7 +101,7 @@ namespace Dreamteck.Splines
 
         void HandleParticle(int index)
         {
-            float lifePercent = particles[index].lifetime / particles[index].startLifetime;
+            float lifePercent = particles[index].remainingLifetime / particles[index].startLifetime;
             if (particleControllers[index] == null)
             {
                 particleControllers[index] = new ParticleController.Particle();
@@ -194,19 +194,19 @@ namespace Dreamteck.Splines
             }
 
 
-            float time = particles[index].startLifetime - particles[index].lifetime;
+            float time = particles[index].startLifetime - particles[index].remainingLifetime;
             Vector3 forceDistance = new Vector3(forceX, forceY, forceZ) * 0.5f * (time * time);
 
             if (motionType == MotionType.ByNormal)
             {
-                particles[index].position += result.normal * _particleSystem.startSpeed * (particles[index].startLifetime - particles[index].lifetime);
+                particles[index].position += result.normal * _particleSystem.startSpeed * (particles[index].startLifetime - particles[index].remainingLifetime);
                 particles[index].position += forceDistance;
                 particles[index].velocity = result.normal * _particleSystem.startSpeed + new Vector3(forceX, forceY, forceZ) * time;
             }
             else if (motionType == MotionType.ByNormalRandomized)
             {
                 Vector3 normal = Quaternion.AngleAxis(Random.Range(0f, 360f), result.direction) * result.normal;
-                particles[index].position += normal * _particleSystem.startSpeed * (particles[index].startLifetime - particles[index].lifetime);
+                particles[index].position += normal * _particleSystem.startSpeed * (particles[index].startLifetime - particles[index].remainingLifetime);
                 particles[index].position += forceDistance;
                 particles[index].velocity = normal * _particleSystem.startSpeed + new Vector3(forceX, forceY, forceZ) * time;
             }

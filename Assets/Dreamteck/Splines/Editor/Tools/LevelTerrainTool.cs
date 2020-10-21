@@ -211,7 +211,7 @@ namespace Dreamteck.Splines
             if (hasChanges)
             {
                 bool isChanged = false;
-                float[,] newHeights = terrain.terrainData.GetHeights(0, 0, terrain.terrainData.heightmapWidth, terrain.terrainData.heightmapHeight);
+                float[,] newHeights = terrain.terrainData.GetHeights(0, 0, terrain.terrainData.heightmapResolution, terrain.terrainData.heightmapResolution);
                 if (newHeights.GetLength(0) != heights.GetLength(0) || newHeights.GetLength(1) != heights.GetLength(1))
                 {
                     isChanged = true;
@@ -341,7 +341,7 @@ namespace Dreamteck.Splines
         {
             GetParticipants();
             if (terrain == null) return;
-            heights = terrain.terrainData.GetHeights(0, 0, terrain.terrainData.heightmapWidth, terrain.terrainData.heightmapHeight);
+            heights = terrain.terrainData.GetHeights(0, 0, terrain.terrainData.heightmapResolution, terrain.terrainData.heightmapResolution);
             basePreview = new Texture2D(heights.GetLength(0), heights.GetLength(1));
             drawPreview = new Texture2D(heights.GetLength(0), heights.GetLength(1));
             Color[] pixels = new Color[basePreview.width * basePreview.height];

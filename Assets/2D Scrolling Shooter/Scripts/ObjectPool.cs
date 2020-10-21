@@ -105,10 +105,10 @@ public class ObjectPool : MonoBehaviour
 		{
 			if(prefabs[i].name == obj.name)
 			{
-				//Deactivate it...
-				obj.SetActive(false);
 				//..parent it to the container...
 				obj.transform.parent = containerObject.transform;
+				//Deactivate it...
+				obj.SetActive(false);
 				//...and add it back to the pool
 				pooledObjects[i].Add(obj);
 				return;

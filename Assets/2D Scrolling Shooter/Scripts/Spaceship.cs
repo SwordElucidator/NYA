@@ -42,12 +42,12 @@ public class Spaceship : MonoBehaviour
         //Get the fire points for future reference (this is for efficiency)
 
         // complex target
-        if (transform.FindChild("ShotPositions") != null)
+        if (transform.Find("ShotPositions") != null)
         {
-            shotPositions = new Transform[transform.FindChild("ShotPositions").childCount];
-            for (int i = 0; i < transform.FindChild("ShotPositions").childCount; i++)
+            shotPositions = new Transform[transform.Find("ShotPositions").childCount];
+            for (int i = 0; i < transform.Find("ShotPositions").childCount; i++)
             {
-                shotPositions[i] = transform.FindChild("ShotPositions").GetChild(i);
+                shotPositions[i] = transform.Find("ShotPositions").GetChild(i);
             }
         }
         else
